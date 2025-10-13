@@ -9,5 +9,10 @@ fun generateWinningPaths(boardSize: Int = 3): List<List<Int>> {
         winPathList.add(rows)
     }
 
+    for (row in 0 until boardSize) {
+        val rows = (0 until boardSize).map { col -> col * boardSize + row }
+        winPathList.add(rows)
+    }
+
     return winPathList
 }

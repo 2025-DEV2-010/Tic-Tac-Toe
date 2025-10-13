@@ -26,4 +26,14 @@ class GameRepositoryTest {
 
         assertFalse(isValid)
     }
+
+    @Test
+    fun `verify valid first column winning path`() {
+        val actualData = listOf(0, 3, 6)
+
+        val expectedData = generateWinningPaths()
+        val isValid = expectedData.contains(actualData)
+
+        assertTrue(isValid)
+    }
 }
