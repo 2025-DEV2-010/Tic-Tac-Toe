@@ -18,6 +18,16 @@ class GameRepositoryTest {
     }
 
     @Test
+    fun `verify valid second row winning path`() {
+        val actualData = listOf(3, 4, 5)
+
+        val expectedData = generateWinningPaths()
+        val isValid = expectedData.contains(actualData)
+
+        assertTrue(isValid)
+    }
+
+    @Test
     fun `verify invalid row path`() {
         val actualData = listOf(0, 1, 3)
 
