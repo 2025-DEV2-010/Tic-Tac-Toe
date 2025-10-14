@@ -14,5 +14,8 @@ fun generateWinningPaths(boardSize: Int = 3): List<List<Int>> {
         winPathList.add(rows)
     }
 
+    val mainDiagonal = (0 until boardSize).map { item -> item * boardSize + item }
+    winPathList.add(mainDiagonal)
+
     return winPathList
 }

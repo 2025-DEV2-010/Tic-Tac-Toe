@@ -86,4 +86,14 @@ class GameRepositoryTest {
 
         assertFalse(isValid)
     }
+
+    @Test
+    fun `verify valid main diagonal win path`() {
+        val expectedData = listOf(0, 4, 8)
+
+        val actualData = generateWinningPaths()
+        val isValid = actualData.contains(expectedData)
+
+        assertTrue(isValid)
+    }
 }
