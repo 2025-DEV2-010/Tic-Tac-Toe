@@ -68,6 +68,16 @@ class GameRepositoryTest {
     }
 
     @Test
+    fun `verify valid third column winning path`() {
+        val expectedData = listOf(2, 5, 8)
+
+        val actualData = generateWinningPaths()
+        val isValid = actualData.contains(expectedData)
+
+        assertTrue(isValid)
+    }
+
+    @Test
     fun `verify invalid column paths`() {
         val expectedData = listOf(0, 3, 8)
 
