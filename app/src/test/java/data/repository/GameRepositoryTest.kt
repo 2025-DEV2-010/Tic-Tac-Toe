@@ -1,11 +1,23 @@
 package data.repository
 
+import com.kata.tictactoe.data.repository.GameRepositoryImpl
+import com.kata.tictactoe.domain.model.GameOutcome
+import com.kata.tictactoe.domain.model.Player
 import com.kata.tictactoe.utils.generateWinningPaths
+import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
+import org.junit.Before
 import org.junit.Test
 
 class GameRepositoryTest {
+
+    lateinit var gameRepository: GameRepositoryImpl
+
+    @Before
+    fun setup() {
+        gameRepository = GameRepositoryImpl()
+    }
 
     @Test
     fun `verify valid first row winning path`() {
@@ -105,5 +117,14 @@ class GameRepositoryTest {
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)
+    }
+
+    @Test
+    fun `verify player-x possible winning scenario`() {
+        val expectedData = listOf(listOf(0, 1, 2), listOf(0, 3, 6), listOf(0, 4, 8))
+
+        val actualOutcome = gameRepository.checkWinner(player = Player.X, paths = expectedData)
+
+        assertEquals(GameOutcome.WIN, actualOutcome)
     }
 }
