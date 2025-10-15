@@ -3,41 +3,38 @@ package com.kata.tictactoe.data.repository
 import com.kata.tictactoe.domain.model.GameOutcome
 import com.kata.tictactoe.domain.model.Player
 import com.kata.tictactoe.domain.repository.GameRepository
+import com.kata.tictactoe.utils.generateWinningPaths
 
-class GameRepositoryImpl(private val gameEngine: GameEngine = GameEngine()) : GameRepository {
-
-    private val winningPaths by lazy { gameEngine.generateWinningPaths() }
+class GameRepositoryImpl : GameRepository {
 
     override fun checkWinner(
-        boardSize: Int,
         player: Player,
         paths: List<List<Int>>
     ): GameOutcome {
+
+        val winningPaths = generateWinningPaths()
 
         val winningStatus = paths.any { item ->
             winningPaths.contains(item.sorted())
         }
 
-        if (winningStatus) {
-            return GameOutcome.WIN
-        }
+        return if (winningStatus) {
+            GameOutcome.WIN
+        } else {
+            when {
+                player == Player.X && paths.size == 4 -> {
+                    return GameOutcome.DRAW
+                }
 
-        val movePathSize = paths.flatten().size
-        val maxMovesForPlayerX = (boardSize / 2)
-        val maxMovesForPlayerO = (boardSize / 2) - 1
+                player == Player.O && paths.size == 3 -> {
+                    return GameOutcome.DRAW
+                }
 
-        return when {
-            player == Player.X && movePathSize >= maxMovesForPlayerX -> {
-                GameOutcome.DRAW
-            }
-
-            player == Player.O && movePathSize >= maxMovesForPlayerO -> {
-                GameOutcome.DRAW
-            }
-
-            else -> {
-                GameOutcome.ONGOING
+                else -> {
+                    GameOutcome.ONGOING
+                }
             }
         }
     }
+
 }
