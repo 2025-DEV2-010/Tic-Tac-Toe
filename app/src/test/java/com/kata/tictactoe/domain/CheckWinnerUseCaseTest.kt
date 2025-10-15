@@ -48,4 +48,17 @@ class CheckWinnerUseCaseTest {
         assertEquals(winner, Player.O)
     }
 
+    @Test
+    fun `test execute with no winner returns null`() {
+        val paths = listOf(
+            listOf(CellState.O, CellState.X, CellState.O),
+            listOf(CellState.X, CellState.O, CellState.X),
+            listOf(CellState.O, CellState.X, CellState.O)
+        )
+        Mockito.`when`(gameRepository.checkWinner(paths)).thenReturn(null)
+
+        val winner = checkWinnerUseCase.execute(paths)
+
+        assertEquals(winner, null)
+    }
 }
