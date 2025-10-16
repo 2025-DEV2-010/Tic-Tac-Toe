@@ -23,8 +23,8 @@ The project uses a Clean Architecture style layering (data/domain/presentation/u
 
 - Unit tests: `./gradlew test`
 
-## [Game Architecture Diagram](project-images/architecture-tic-tac-toe.jpeg)
+## [Tic-Tac-Toe App Architecture Diagram](project-images/architecture-tic-tac-toe.jpeg)
 
-## [Tic-Tac-Toe App Screenshots](project-images/sample1.png)
+## [GameSnap - Sample-1](project-images/sample1.png)
 
-## [Sample2](project-images/sample1.png)
+## [GameSnap - Sample-2](project-images/sample1.png)
