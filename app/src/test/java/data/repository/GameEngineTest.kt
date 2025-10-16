@@ -22,7 +22,7 @@ class GameEngineTest {
     fun `verify valid first row winning path`() {
         val expectedData = listOf(0, 1, 2)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)
@@ -32,7 +32,7 @@ class GameEngineTest {
     fun `verify valid second row winning path`() {
         val expectedData = listOf(3, 4, 5)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)
@@ -42,7 +42,7 @@ class GameEngineTest {
     fun `verify valid third row winning path`() {
         val expectedData = listOf(6, 7, 8)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)
@@ -52,7 +52,7 @@ class GameEngineTest {
     fun `verify invalid row path`() {
         val expectedData = listOf(0, 1, 3)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertFalse(isValid)
@@ -62,7 +62,7 @@ class GameEngineTest {
     fun `verify valid first column winning path`() {
         val expectedData = listOf(0, 3, 6)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)
@@ -72,7 +72,7 @@ class GameEngineTest {
     fun `verify valid second column winning path`() {
         val expectedData = listOf(1, 4, 7)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)
@@ -82,7 +82,7 @@ class GameEngineTest {
     fun `verify valid third column winning path`() {
         val expectedData = listOf(2, 5, 8)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)
@@ -92,7 +92,7 @@ class GameEngineTest {
     fun `verify invalid column paths`() {
         val expectedData = listOf(0, 3, 8)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertFalse(isValid)
@@ -102,7 +102,7 @@ class GameEngineTest {
     fun `verify valid main diagonal win path`() {
         val expectedData = listOf(0, 4, 8)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)
@@ -112,7 +112,7 @@ class GameEngineTest {
     fun `verify valid anti diagonal win path`() {
         val expectedData = listOf(2, 4, 6)
 
-        val actualData = gameEngine.generateWinningPaths()
+        val actualData = gameEngine.winningPaths
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)

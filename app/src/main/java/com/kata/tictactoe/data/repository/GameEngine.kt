@@ -3,24 +3,24 @@ package com.kata.tictactoe.data.repository
 import com.kata.tictactoe.domain.model.CellState
 import com.kata.tictactoe.domain.model.Player
 
-class GameEngine(private val boardSize: Int = 3) {
+class GameEngine(
+    private val boardSize: Int = 3
+) {
+    val winningPaths by lazy { generateWinningPaths() }
 
-    private val winningPaths = mutableListOf<List<Int>>()
+    private fun generateWinningPaths(): List<List<Int>> {
 
-    init {
-        generateWinningPaths()
+        val possiblePaths = mutableListOf<List<Int>>()
+
+        possiblePaths.addAll(getWinningRowItems())
+        possiblePaths.addAll(getWinningColumnItems())
+        possiblePaths.add(getMainDiagonalItem())
+        possiblePaths.add(getAntiDiagonalItem())
+
+        return possiblePaths
     }
-    fun generateWinningPaths(): List<List<Int>> {
 
-        winningPaths.addAll(getWinningRowItems())
-        winningPaths.addAll(getWinningColumnItems())
-        winningPaths.add(getMainDiagonalItem())
-        winningPaths.add(getAntiDiagonalItem())
-
-        return winningPaths
-    }
-
-    private fun getWinningRowItems(): MutableList<List<Int>> {
+    private fun getWinningRowItems(): List<List<Int>> {
         val rowList = mutableListOf<List<Int>>()
         for (row in 0 until boardSize) {
             val rows = (0 until boardSize).map { col -> row * boardSize + col }
@@ -29,7 +29,7 @@ class GameEngine(private val boardSize: Int = 3) {
         return rowList
     }
 
-    private fun getWinningColumnItems(): MutableList<List<Int>> {
+    private fun getWinningColumnItems(): List<List<Int>> {
         val columnList = mutableListOf<List<Int>>()
         for (row in 0 until boardSize) {
             val rows = (0 until boardSize).map { col -> col * boardSize + row }
@@ -51,9 +51,17 @@ class GameEngine(private val boardSize: Int = 3) {
 
         for (line in winningPaths) {
             val first = board[line.first()]
-            if (first == CellState.EMPTY) continue
-            if (line.all { board[it] == first }) {
-                return if (first == CellState.X) Player.X else Player.O
+            if (first == CellState.EMPTY) {
+                continue
+            }
+            when {
+                line.all { board[it] == first } -> {
+                    return if (first == CellState.X) {
+                        Player.X
+                    } else {
+                        Player.O
+                    }
+                }
             }
         }
         return null
