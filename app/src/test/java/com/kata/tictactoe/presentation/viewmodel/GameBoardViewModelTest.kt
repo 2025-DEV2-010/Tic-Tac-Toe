@@ -49,8 +49,6 @@ class GameBoardViewModelTest {
 
     @Test
     fun `Player O move updates cell and switches to Player X`() {
-        //viewModel.updateCurrentPlayer(Player.O) // no need
-
         viewModel.updatePlayMoveStatus(1, 2)
         viewModel.updatePlayMoveStatus(2, 2)
 
@@ -75,5 +73,13 @@ class GameBoardViewModelTest {
 
         val state = viewModel.gameProgressState.value
         assertEquals(GameOutcome.WIN, state.gameOutComeStatus)
+    }
+
+    @Test
+    fun `resetGame should set gameProgressState to default GameProgress`() {
+        viewModel.resetGame()
+
+        val actualState = viewModel.gameProgressState.value
+        assertEquals(GameProgress(), actualState)
     }
 }

@@ -54,12 +54,14 @@ class GameBoardViewModel(
         }
     }
 
-    fun updateCurrentPlayer(player: Player): Player {
+    private fun updateCurrentPlayer(player: Player): Player {
         return if (player == Player.X) Player.O else Player.X
     }
 
     fun resetGame() {
-        _gameProgressState.value = GameProgress()
+        _gameProgressState.update {
+            GameProgress()
+        }
     }
 
 }
