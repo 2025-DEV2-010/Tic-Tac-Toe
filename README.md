@@ -29,9 +29,3 @@ The project uses a Clean Architecture style layering (data/domain/presentation/u
    - `./gradlew test` (Unit Tests)
 
 ## [Tic-Tac-Toe App Architecture Diagram]
-
-![Game Screenshot](https://raw.githubusercontent.com/2025-DEV2-010/Tic-Tac-Toe/main/assets/architecture-tic-tac-toe.jpeg)
-
-![GameSnap - Sample-1](https://raw.githubusercontent.com/2025-DEV2-010/Tic-Tac-Toe/main/assets/sample1.png)
-
-![GameSnap - Sample-2](https://raw.githubusercontent.com/2025-DEV2-010/Tic-Tac-Toe/main/assets/sample2.png)
