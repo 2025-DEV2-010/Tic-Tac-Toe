@@ -73,7 +73,6 @@ fun GameBoardScreen(
 
         if (gameProgressState.gameOutComeStatus == GameOutcome.WIN) {
             ShowAlertDialog(
-                name = gameProgressState.currentMovePlayer.name,
                 msg = stringResource(R.string.win_msg, gameProgressState.currentMovePlayer.name)
             ) {
                 viewModel.resetGame()
@@ -91,7 +90,6 @@ fun StatusComponent(gameProgressState: GameProgress, onClick: () -> Unit) {
 
     val statusMessage = if (gameProgressState.isDraw) {
         ShowAlertDialog(
-            name = gameProgressState.currentMovePlayer.name,
             msg = stringResource(R.string.game_draw),
             onClick = onClick
         )
