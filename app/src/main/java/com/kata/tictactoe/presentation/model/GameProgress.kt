@@ -1,4 +1,4 @@
-package com.kata.tictactoe.presentation.viewmodel.model
+package com.kata.tictactoe.presentation.model
 
 import com.kata.tictactoe.domain.model.CellState
 import com.kata.tictactoe.domain.model.GameOutcome

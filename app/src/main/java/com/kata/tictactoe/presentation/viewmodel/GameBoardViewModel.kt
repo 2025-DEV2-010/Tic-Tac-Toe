@@ -5,7 +5,7 @@ import com.kata.tictactoe.domain.CheckWinnerUseCase
 import com.kata.tictactoe.domain.model.CellState
 import com.kata.tictactoe.domain.model.GameOutcome
 import com.kata.tictactoe.domain.model.Player
-import com.kata.tictactoe.presentation.viewmodel.model.GameProgress
+import com.kata.tictactoe.presentation.model.GameProgress
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -36,4 +36,9 @@ class GameBoardViewModel(
             currentMovePlayer = if (currentState.currentMovePlayer == Player.X) Player.O else Player.X,
         )
     }
+
+    fun resetGame() {
+        _gameProgressState.value = GameProgress()
+    }
+
 }

@@ -5,7 +5,7 @@ import com.kata.tictactoe.domain.CheckWinnerUseCase
 import com.kata.tictactoe.domain.model.CellState
 import com.kata.tictactoe.domain.model.GameOutcome
 import com.kata.tictactoe.domain.model.Player
-import com.kata.tictactoe.presentation.viewmodel.model.GameProgress
+import com.kata.tictactoe.presentation.model.GameProgress
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
