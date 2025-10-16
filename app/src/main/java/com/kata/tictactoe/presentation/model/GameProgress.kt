@@ -1,11 +1,12 @@
 package com.kata.tictactoe.presentation.model
 
+import com.kata.tictactoe.BOARD_SIZE
 import com.kata.tictactoe.domain.model.CellState
 import com.kata.tictactoe.domain.model.GameOutcome
 import com.kata.tictactoe.domain.model.Player
 
 data class GameProgress(
-    val boxSize: Int = 3,
+    val boxSize: Int = BOARD_SIZE,
     val playerMovedPositions: List<MutableList<CellState>> = List(boxSize) {
         MutableList(boxSize) {
             CellState.EMPTY

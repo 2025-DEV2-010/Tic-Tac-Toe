@@ -1,10 +1,11 @@
 package com.kata.tictactoe.data.repository
 
+import com.kata.tictactoe.BOARD_SIZE
 import com.kata.tictactoe.domain.model.CellState
 import com.kata.tictactoe.domain.model.Player
 
 class GameEngine(
-    private val boardSize: Int = 3
+    private val boardSize: Int = BOARD_SIZE
 ) {
     val winningPaths by lazy { generateWinningPaths() }
 
