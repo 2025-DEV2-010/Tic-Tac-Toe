@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun ShowWinDialog(name: String, onClick: () -> Unit) {
+fun ShowAlertDialog(name: String, msg: String, onClick: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -25,7 +25,7 @@ fun ShowWinDialog(name: String, onClick: () -> Unit) {
                 Text(text = "Tic Tac Toe")
             },
             text = {
-                Text("Hey Player $name congratulations, you've won the Game")
+                Text(msg)
             },
             confirmButton = {
                 TextButton(

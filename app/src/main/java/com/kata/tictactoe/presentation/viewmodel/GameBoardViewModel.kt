@@ -8,6 +8,7 @@ import com.kata.tictactoe.domain.model.Player
 import com.kata.tictactoe.presentation.model.GameProgress
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class GameBoardViewModel(
     private val useCase: CheckWinnerUseCase = CheckWinnerUseCase()
@@ -20,37 +21,41 @@ class GameBoardViewModel(
 
         val currentState = _gameProgressState.value
         val selectedItems = currentState.playerMovedPositions
-        var statusMessage = ""
 
-        when {
+        val statusMessage = when {
             selectedItems[rowIndex][columnIndex] != CellState.EMPTY -> {
-                statusMessage = "Invalid Move"
+                CellState.INVALID
             }
 
             currentState.currentMovePlayer == Player.X -> {
                 selectedItems[rowIndex][columnIndex] = CellState.X
-                statusMessage = "Player O"
+                CellState.O
             }
 
             else -> {
                 selectedItems[rowIndex][columnIndex] = CellState.O
-                statusMessage = "Player X"
+                CellState.X
             }
         }
 
         val winningStatus = useCase.execute(selectedItems)
         val drawStatus = selectedItems.all { item -> item.all { it != CellState.EMPTY } }
 
-        _gameProgressState.value = currentState.copy(
-            statusMessage = if (drawStatus) "Match Draw" else statusMessage,
-            playerMovedPositions = selectedItems,
-            gameOutComeStatus = if (winningStatus == null) GameOutcome.ONGOING else GameOutcome.WIN,
-            currentMovePlayer = if (currentState.currentMovePlayer == Player.X && winningStatus == null) Player.O else Player.X,
-        )
+        _gameProgressState.update {
+            it.copy(
+                isDraw = drawStatus,
+                statusMessage = statusMessage,
+                playerMovedPositions = selectedItems,
+                gameOutComeStatus = if (winningStatus == null) GameOutcome.ONGOING else GameOutcome.WIN,
+                currentMovePlayer = if (winningStatus != null) currentState.currentMovePlayer else updateCurrentPlayer(
+                    currentState.currentMovePlayer
+                ),
+            )
+        }
     }
 
-    fun updateCurrentPlayer(player: Player) {
-        _gameProgressState.value = _gameProgressState.value.copy(currentMovePlayer = player)
+    fun updateCurrentPlayer(player: Player): Player {
+        return if (player == Player.X) Player.O else Player.X
     }
 
     fun resetGame() {

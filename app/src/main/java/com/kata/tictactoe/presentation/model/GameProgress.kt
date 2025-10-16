@@ -12,6 +12,7 @@ data class GameProgress(
         }
     },
     val currentMovePlayer: Player = Player.X,
-    val statusMessage: String? = null,
-    val gameOutComeStatus: GameOutcome = GameOutcome.ONGOING
+    val statusMessage: CellState = CellState.X,
+    val gameOutComeStatus: GameOutcome = GameOutcome.ONGOING,
+    val isDraw: Boolean = false
 )

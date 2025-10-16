@@ -16,15 +16,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.kata.tictactoe.R
 import com.kata.tictactoe.domain.model.CellState
 import com.kata.tictactoe.domain.model.GameOutcome
+import com.kata.tictactoe.presentation.model.GameProgress
 import com.kata.tictactoe.presentation.viewmodel.GameBoardViewModel
 
 @Composable
-fun GameBoardScreen(innerPadding: PaddingValues) {
+fun GameBoardScreen(
+    innerPadding: PaddingValues,
+    viewModel: GameBoardViewModel = viewModel<GameBoardViewModel>()
+) {
 
     Column(
         modifier = Modifier
@@ -32,19 +38,11 @@ fun GameBoardScreen(innerPadding: PaddingValues) {
             .padding(innerPadding),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val viewModel = viewModel<GameBoardViewModel>()
-
         val gameProgressState by viewModel.gameProgressState.collectAsStateWithLifecycle()
 
-        Text(
-            modifier = Modifier.padding(top = 8.dp),
-            text = gameProgressState.gameOutComeStatus.name
-        )
-
-        Text(
-            modifier = Modifier.padding(top = 8.dp),
-            text = gameProgressState.statusMessage ?: ""
-        )
+        StatusComponent(gameProgressState) {
+            viewModel.resetGame()
+        }
 
         LazyColumn {
             itemsIndexed(
@@ -56,6 +54,7 @@ fun GameBoardScreen(innerPadding: PaddingValues) {
                     ) { columnIndex, columnItem ->
                         val cellState =
                             gameProgressState.playerMovedPositions[rowIndex][columnIndex]
+
                         CellComponent(cellState) {
                             viewModel.updatePlayMoveStatus(rowIndex, columnIndex)
                         }
@@ -67,18 +66,48 @@ fun GameBoardScreen(innerPadding: PaddingValues) {
         Button(
             modifier = Modifier.padding(top = 20.dp),
             onClick = {
-            viewModel.resetGame()
-        }) {
+                viewModel.resetGame()
+            }) {
             Text("Reset Game")
         }
 
-
         if (gameProgressState.gameOutComeStatus == GameOutcome.WIN) {
-            ShowWinDialog(gameProgressState.currentMovePlayer.name) {
+            ShowAlertDialog(
+                name = gameProgressState.currentMovePlayer.name,
+                msg = stringResource(R.string.win_msg, gameProgressState.currentMovePlayer.name)
+            ) {
                 viewModel.resetGame()
             }
         }
     }
+}
+
+@Composable
+fun StatusComponent(gameProgressState: GameProgress, onClick: () -> Unit) {
+    Text(
+        modifier = Modifier.padding(top = 8.dp),
+        text = gameProgressState.gameOutComeStatus.name
+    )
+
+    val statusMessage = if (gameProgressState.isDraw) {
+        ShowAlertDialog(
+            name = gameProgressState.currentMovePlayer.name,
+            msg = stringResource(R.string.game_draw),
+            onClick = onClick
+        )
+        stringResource(R.string.move_draw)
+    } else {
+        when (gameProgressState.statusMessage) {
+            CellState.X, CellState.EMPTY -> stringResource(R.string.move_playerX)
+            CellState.O -> stringResource(R.string.move_playerY)
+            CellState.INVALID -> stringResource(R.string.move_invalid)
+        }
+    }
+
+    Text(
+        modifier = Modifier.padding(top = 8.dp),
+        text = statusMessage
+    )
 }
 
 @Composable
