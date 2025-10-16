@@ -4,13 +4,14 @@ import com.kata.tictactoe.domain.model.CellState
 import com.kata.tictactoe.domain.model.Player
 import com.kata.tictactoe.domain.repository.GameRepository
 
-class GameRepositoryImpl : GameRepository {
+class GameRepositoryImpl(
+    private val gameEngine: GameEngine = GameEngine()
+) : GameRepository {
 
     override fun checkWinner(
         paths: List<List<CellState>>
     ): Player? {
-        return Player.X
+        return gameEngine.findWinner(userSelectedPaths = paths)
     }
-
 
 }
