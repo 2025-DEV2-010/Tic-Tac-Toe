@@ -68,7 +68,7 @@ fun GameBoardScreen(
             onClick = {
                 viewModel.resetGame()
             }) {
-            Text("Reset Game")
+            Text(text = stringResource(R.string.reset_game))
         }
 
         if (gameProgressState.gameOutComeStatus == GameOutcome.WIN) {

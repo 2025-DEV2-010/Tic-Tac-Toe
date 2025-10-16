@@ -9,6 +9,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.kata.tictactoe.R
 
 @Composable
 fun ShowAlertDialog(msg: String, onClick: () -> Unit) {
@@ -22,7 +24,7 @@ fun ShowAlertDialog(msg: String, onClick: () -> Unit) {
                 onClick.invoke()
             },
             title = {
-                Text(text = "Tic Tac Toe")
+                Text(text = stringResource(R.string.app_name))
             },
             text = {
                 Text(msg)
