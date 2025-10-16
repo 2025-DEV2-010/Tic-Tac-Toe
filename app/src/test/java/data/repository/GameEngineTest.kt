@@ -1,6 +1,9 @@
 package data.repository
 
 import com.kata.tictactoe.data.repository.GameEngine
+import com.kata.tictactoe.domain.model.CellState
+import com.kata.tictactoe.domain.model.Player
+import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
@@ -113,5 +116,18 @@ class GameEngineTest {
         val isValid = actualData.contains(expectedData)
 
         assertTrue(isValid)
+    }
+
+    @Test
+    fun `should return Player X when X has winning row`() {
+        val board = listOf(
+            listOf(CellState.X, CellState.X, CellState.X),
+            listOf(CellState.O, CellState.EMPTY, CellState.O),
+            listOf(CellState.EMPTY, CellState.EMPTY, CellState.EMPTY)
+        )
+
+        val actualResult = gameEngine.findWinner(board)
+
+        assertEquals(Player.X, actualResult)
     }
 }
