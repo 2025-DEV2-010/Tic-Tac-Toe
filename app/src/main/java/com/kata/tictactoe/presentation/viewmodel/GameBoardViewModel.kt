@@ -22,19 +22,35 @@ class GameBoardViewModel(
         val selectedItems = currentState.playerMovedPositions
         var statusMessage = ""
 
-        if (currentState.currentMovePlayer == Player.X) {
-            selectedItems[rowIndex][columnIndex] = CellState.X
-            statusMessage = "Player O"
+        when {
+            selectedItems[rowIndex][columnIndex] != CellState.EMPTY -> {
+                statusMessage = "Invalid Move"
+            }
+
+            currentState.currentMovePlayer == Player.X -> {
+                selectedItems[rowIndex][columnIndex] = CellState.X
+                statusMessage = "Player O"
+            }
+
+            else -> {
+                selectedItems[rowIndex][columnIndex] = CellState.O
+                statusMessage = "Player X"
+            }
         }
 
         val winningStatus = useCase.execute(selectedItems)
+        val drawStatus = selectedItems.all { item -> item.all { it != CellState.EMPTY } }
 
         _gameProgressState.value = currentState.copy(
-            statusMessage = statusMessage,
+            statusMessage = if (drawStatus) "Match Draw" else statusMessage,
             playerMovedPositions = selectedItems,
             gameOutComeStatus = if (winningStatus == null) GameOutcome.ONGOING else GameOutcome.WIN,
-            currentMovePlayer = if (currentState.currentMovePlayer == Player.X) Player.O else Player.X,
+            currentMovePlayer = if (currentState.currentMovePlayer == Player.X && winningStatus == null) Player.O else Player.X,
         )
+    }
+
+    fun updateCurrentPlayer(player: Player) {
+        _gameProgressState.value = _gameProgressState.value.copy(currentMovePlayer = player)
     }
 
     fun resetGame() {

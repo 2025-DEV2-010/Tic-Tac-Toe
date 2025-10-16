@@ -15,7 +15,7 @@ import org.mockito.kotlin.whenever
 
 class GameBoardViewModelTest {
 
-    private lateinit var viewModel: GameBoardViewModel
+    private lateinit var viewModelTest: GameBoardViewModel
     private lateinit var mockUseCase: CheckWinnerUseCase
     private val _gameProgressState = mutableStateOf(
         GameProgress()
@@ -25,7 +25,7 @@ class GameBoardViewModelTest {
     fun setUp() {
         mockUseCase = mock()
 
-        viewModel = GameBoardViewModel(mockUseCase).apply {
+        viewModelTest = GameBoardViewModel(mockUseCase).apply {
             _gameProgressState.value = GameProgress(
                 currentMovePlayer = Player.X,
                 playerMovedPositions = List(3) { MutableList(3) { CellState.EMPTY } }
@@ -39,13 +39,41 @@ class GameBoardViewModelTest {
             mockUseCase.execute(any())
         ).thenReturn(null)
 
-        viewModel.updatePlayMoveStatus(1, 1)
+        viewModelTest.updatePlayMoveStatus(1, 1)
 
-        val state = viewModel.gameProgressState.value
+        val state = viewModelTest.gameProgressState.value
         assertEquals(CellState.X, state.playerMovedPositions[1][1])
         assertEquals(Player.O, state.currentMovePlayer)
         assertEquals("Player O", state.statusMessage)
         assertEquals(GameOutcome.ONGOING, state.gameOutComeStatus)
     }
 
+    @Test
+    fun `Player O move updates cell and switches to Player X`() {
+        viewModelTest.updateCurrentPlayer(Player.O)
+
+        whenever(
+            mockUseCase.execute(any())
+        ).thenReturn(null)
+
+        viewModelTest.updatePlayMoveStatus(2, 2)
+
+        val state = viewModelTest.gameProgressState.value
+        assertEquals(CellState.O, state.playerMovedPositions[2][2])
+        assertEquals(Player.X, state.currentMovePlayer)
+        assertEquals("Player X", state.statusMessage)
+        assertEquals(GameOutcome.ONGOING, state.gameOutComeStatus)
+    }
+
+    @Test
+    fun `when useCase returns winner, game outcome is WIN`() {
+        whenever(
+            mockUseCase.execute(any())
+        ).thenReturn(Player.X)
+
+        viewModelTest.updatePlayMoveStatus(0, 0)
+
+        val state = viewModelTest.gameProgressState.value
+        assertEquals(GameOutcome.WIN, state.gameOutComeStatus)
+    }
 }
