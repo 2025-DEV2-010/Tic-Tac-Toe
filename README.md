@@ -12,19 +12,30 @@ The project uses a Clean Architecture style layering (data/domain/presentation/u
 - Unit tests (repository + domain + ViewModel)
 - Compose UI
 
+# Versions
+
+- Java 11
+- Kotlin 2.0
+- Compile SDK 36
+- Min SDK 29
+- Target SDK 36
+- Android Gradle Plugin (AGP) 8.13.0
+
 ## How to run
 
 1. Open in Android Studio (Narwhal 3 | 2025.1.3)
 2. Run the `app` module, or use Gradle:
    - `./gradlew assembleDebug`
-   - `./gradlew test` (unit tests)
+   - `./gradlew test` (Unit Tests)
 
-## Testing (TDD Flow)
+## [Tic-Tac-Toe App Architecture Diagram]
 
-- Unit tests: `./gradlew test`
+![Game Screenshot](https://raw.githubusercontent.com/2025-DEV2-010/Tic-Tac-Toe/main/assets/architecture-tic-tac-toe.jpeg)
 
-## [Tic-Tac-Toe App Architecture Diagram](project-images/architecture-tic-tac-toe.jpeg)
+## [GameSnap - Sample-1]
 
-## [GameSnap - Sample-1](project-images/sample1.png)
+(https://raw.githubusercontent.com/2025-DEV2-010/Tic-Tac-Toe/main/assets//sample1.png)
 
-## [GameSnap - Sample-2](project-images/sample1.png)
+## [GameSnap - Sample-2]
+
+(https://raw.githubusercontent.com/2025-DEV2-010/Tic-Tac-Toe/main/assets//sample2.png)
