@@ -43,7 +43,7 @@ class GameBoardViewModelTest {
         val state = viewModel.gameProgressState.value
         assertEquals(CellState.X, state.playerMovedPositions[1][1])
         assertEquals(Player.O, state.currentMovePlayer)
-        assertEquals(Player.O, state.statusMessage)
+        assertEquals(CellState.O, state.statusMessage)
         assertEquals(GameOutcome.ONGOING, state.gameOutComeStatus)
     }
 
@@ -61,7 +61,7 @@ class GameBoardViewModelTest {
         val state = viewModel.gameProgressState.value
         assertEquals(CellState.O, state.playerMovedPositions[2][2])
         assertEquals(Player.X, state.currentMovePlayer)
-        assertEquals(Player.X, state.statusMessage)
+        assertEquals(CellState.X, state.statusMessage)
         assertEquals(GameOutcome.ONGOING, state.gameOutComeStatus)
     }
 
